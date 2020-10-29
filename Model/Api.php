@@ -313,4 +313,55 @@ class Api extends CampaignMonitor
 
         return $reply;
     }
+
+    public function getWebhooks($storeId){
+
+        $listId = $this->helperData->getListId($storeId);
+
+        $reply = $this->call(
+            \Zend_Http_Client::GET,
+            "lists/{$listId}/webhooks",
+            [],
+            [],
+            $storeId
+        );
+
+        return $reply;
+    }
+
+    public function createWebhook($storeId){
+
+        $listId = $this->helperData->getListId($storeId);
+
+        $baseUrl = $this->storeManager->getStore($storeId)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
+
+        $reply = $this->call(
+            \Zend_Http_Client::POST,
+            "lists/{$listId}/webhooks",
+            [
+                "Events" => ["Subscribe", "Deactivate", "Update"],
+                "Url" => $baseUrl."campaignmonitor/webhook/subscribe",
+                "PayloadFormat" => "json"
+            ],
+            [],
+            $storeId
+        );
+
+        return $reply;
+    }
+
+    public function deleteWebhook($storeId, $webhookId){
+
+        $listId = $this->helperData->getListId($storeId);
+
+        $reply = $this->call(
+            \Zend_Http_Client::DELETE,
+            "lists/{$listId}/webhooks/{$webhookId}",
+            [],
+            [],
+            $storeId
+        );
+
+        return $reply;
+    }
 }

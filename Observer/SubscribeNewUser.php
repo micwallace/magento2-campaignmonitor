@@ -38,7 +38,8 @@ class SubscribeNewUser implements \Magento\Framework\Event\ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $subscriber = $observer->getEvent()->getSubscriber();
-        if($subscriber->getSubscriberStatus() == \Magento\Newsletter\Model\Subscriber::STATUS_SUBSCRIBED){
+        if(!$subscriber->getIsWebhookUpdate() &&
+            $subscriber->getSubscriberStatus() == \Magento\Newsletter\Model\Subscriber::STATUS_SUBSCRIBED){
             $listId = $this->helperData->getListId($subscriber->getStoreId());
             try {
                 $this->apiFactory->create()->subscribe($subscriber->getSubscriberEmail(), $subscriber->getStoreId());

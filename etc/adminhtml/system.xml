@@ -22,7 +22,7 @@
                     <label>Select a List</label>
                     <source_model>Luma\Campaignmonitor\Model\Config\ListSelection</source_model>
                     <comment><![CDATA[The Campaign Monitor subscriber list your Magento users will subscribe to or unsubscribe from.]]></comment>
-                </field>                
+                </field>
             </group>
             <group id="advanced" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
                 <label>Advanced</label>
@@ -30,7 +30,12 @@
                     <label>Test API</label>
                     <frontend_model>Luma\Campaignmonitor\Block\Adminhtml\Config\TestApi</frontend_model>
                     <comment>Test your credentials are correct and can connect to Campaign Monitor's API. Make sure to click Save Config after entering your API key before testing.</comment>
-                </field>                
+                </field>
+                <field id="create_webhooks_button" translate="label comment" type="button" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create Webhooks</label>
+                    <frontend_model>Luma\Campaignmonitor\Block\Adminhtml\Config\WebhookButton</frontend_model>
+                    <comment>Create webhooks for real time synchronisation from campaign monitor to Magento.</comment>
+                </field>
                 <field id="logging" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Enable Logging</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
